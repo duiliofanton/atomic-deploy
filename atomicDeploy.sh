@@ -674,6 +674,9 @@ deploy_project() {
     log_message "Clearing Laravel caches"
     run_artisan "$php_bin" "$release_dir" optimize:clear
 
+    log_message "Regenerating services manifest"
+    run_artisan "$php_bin" "$release_dir" package:discover
+
     log_message "Warming Laravel caches"
     run_artisan "$php_bin" "$release_dir" config:cache
     run_artisan "$php_bin" "$release_dir" route:cache || true
